@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			/* 如何实现闭包：
+                1.函数嵌套
+                2.内部函数引用外部函数的变量
+                3.外部函数返回内部函数
+            */
+			function outerFn() {
+				const outerVar = { name: "吕威鹏", age: 18 };
+				function innerFn() {
+					console.log("引用的外部函数变量>>>", outerVar);
+				}
+				return innerFn;
+			}
+			const getVar = outerFn();
+			getVar(); // 这里虽然 outerFn 执行完毕，但 innerFn 依然能访问 outerVar
+		</script>
+	</body>
+</html>

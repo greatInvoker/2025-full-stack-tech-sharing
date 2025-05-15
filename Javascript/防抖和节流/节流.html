@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			#container {
+				width: 100%;
+				height: 200vh;
+				background-color: #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container"></div>
+		<script>
+			function throttle(callback, limit) {
+				// 1.设置timer
+				let timer = null;
+				return function (...args) {
+					const context = this;
+					if (!timer) {
+						// 2-1.timer不存在时执行回调函数
+						timer = setTimeout(function () {
+							callback.apply(context, args);
+							// 限制时间结束清除定时器
+							timer = null;
+						}, limit);
+					} else {
+						// 2-2.timer存在时节流生效
+						console.log("节流生效");
+					}
+				};
+			}
+
+			window.addEventListener(
+				"scroll",
+				throttle(function () {
+					console.log("滚动生效");
+				}, 1000)
+			);
+		</script>
+	</body>
+</html>

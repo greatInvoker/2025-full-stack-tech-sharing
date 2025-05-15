@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div>
+			<label for="searchInput">搜索</label>
+			<input id="searchInput" type="search" />
+			<span id="content"></span>
+		</div>
+		<script>
+			const searchContent = ["西瓜", "梨子", "苹果", "香蕉", "草莓", "西梅"];
+			const searchInputNode = document.querySelector("#searchInput");
+			const contentNode = document.querySelector("#content");
+
+			function searchFn(value) {
+				const result = searchContent.filter((item) => {
+					return item.includes(value);
+				});
+				contentNode.textContent = result.join(",");
+				console.log("触发联想");
+			}
+
+			function debounce(callback, delay) {
+				// 1.设置timer
+				let timer = null;
+				return function (...args) {
+					// 2.延时内再次触发重新计时
+					clearTimeout(timer);
+					console.log("防抖生效");
+					// 3.延时外则执行回调函数
+					const context = this;
+					timer = setTimeout(function () {
+						callback.apply(context, args);
+					}, delay);
+				};
+			}
+
+			searchInputNode.addEventListener(
+				"input",
+				debounce(function () {
+					searchFn(this.value);
+				}, 1000)
+			);
+		</script>
+	</body>
+</html>

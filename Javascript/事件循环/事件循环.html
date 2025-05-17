@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			/*输出结果：
+            2 1 5 6 10 Promise 3 8 7 4 p1
+            */
+			const p1 = new Promise((resolve) => {
+				console.log("2");
+				resolve("p1");
+			}).then((val) => {
+				console.log("3");
+				setTimeout(() => {
+					console.log(val);
+				}, 100);
+			});
+			console.log("1");
+			setTimeout(() => {
+				console.log("4");
+			}, 0);
+			console.log("5");
+			async function foo() {
+				console.log("6");
+				await console.log("10");
+				await new Promise((resolve) => {
+					console.log("8");
+					resolve("p2");
+				}).then((val) => {
+					return val;
+				});
+				await console.log("7");
+			}
+			console.log(foo());
+		</script>
+	</body>
+</html>

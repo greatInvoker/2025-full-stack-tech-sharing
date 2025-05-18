@@ -26,8 +26,8 @@
 					const context = this;
 					if (!timer) {
 						// 2-1.timer不存在时执行回调函数
+						callback.apply(context, args);
 						timer = setTimeout(function () {
-							callback.apply(context, args);
 							// 限制时间结束清除定时器
 							timer = null;
 						}, limit);

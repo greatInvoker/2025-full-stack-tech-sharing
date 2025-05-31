@@ -1,0 +1,28 @@
+# 依赖文件夹
+node_modules/
+dist/
+build/
+
+# 环境变量
+.env*
+!.env.example
+
+# 编辑器/IDE 配置
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 日志文件
+logs/
+*.log
+
+# 临时文件
+temp/
+*.tmp
+
+# macOS 系统文件
+.DS_Store

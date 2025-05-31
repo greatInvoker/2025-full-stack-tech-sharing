@@ -1,0 +1,25 @@
+{
+	"name": "react-mini-cli",
+	"version": "1.0.0",
+	"author": "CodeGod-吕威鹏",
+	"license": "ISC",
+	"description": "仅包含React的极简脚手架，适用于学习和自由扩展",
+	"keywords": [
+		"vite",
+		"react",
+		"mini",
+		"minimalist",
+		"极简"
+	],
+	"bin": {
+		"react-mini": "bin/react-mini.js"
+	},
+	"files": [
+		"bin",
+		"template"
+	],
+	"dependencies": {
+		"commander": "^11.1.0",
+		"fs-extra": "^11.1.1"
+	}
+}

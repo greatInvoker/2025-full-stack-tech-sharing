@@ -82,23 +82,6 @@ program.parse(process.argv);
 
 ## 4.编写模版文件
 
-template/index.html
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>React-Mini-App</title>
-	</head>
-	<body>
-		<div id="root"></div>
-		<script type="module" src="/src/index"></script>
-	</body>
-</html>
-```
-
 template/src/App.jsx
 
 ```javascript
@@ -122,6 +105,23 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
+```
+
+template/index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>React-Mini-App</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/index"></script>
+	</body>
+</html>
 ```
 
 template/vite.config.js
@@ -166,6 +166,8 @@ template/package.json
 	}
 }
 ```
+
+最后生成 template/public/favico.ico（启动项目时 vite 会默认引用）和 template/README.md
 
 ## 5.配置脚手架的 package.json
 

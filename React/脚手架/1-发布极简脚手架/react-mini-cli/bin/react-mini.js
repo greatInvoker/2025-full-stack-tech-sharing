@@ -27,9 +27,9 @@ program
 			console.log("👉 要进入项目目录并安装依赖，复制并执行以下命令:");
 			console.log(`\n\x1b[36mcd ${projectName} && pnpm install\x1b[0m\n`);
 			console.log("👉 项目创建完成后，你可以:");
-			console.log("  1. 启动开发服务器: pnpm start");
-			console.log("  2. 构建生产版本: pnpm run build");
-			console.log("  3. 运行测试: pnpm test");
+			console.log("  1. 启动开发服务器: pnpm dev");
+			console.log("  2. 构建生产版本: pnpm build");
+			console.log("  3. 预览生产版本: pnpm preview");
 		} catch (error) {
 			console.error(`❌ 创建项目失败: ${error.message}`);
 			process.exit(1);

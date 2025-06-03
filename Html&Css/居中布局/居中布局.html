@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>居中布局</title>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body p {
+				margin: 0;
+				padding: 0;
+			}
+
+			.border-black {
+				border: 1px solid #000;
+			}
+			.border-dashed {
+				border: 1px dashed #000;
+			}
+			.content-box {
+				margin-top: 10px;
+				width: 50%;
+				min-height: 50px;
+				background-color: rgba(144, 238, 144, 0.8);
+			}
+
+			ol li {
+				font-size: 1.2em;
+				margin: 10px 0;
+			}
+			h1 {
+				border-bottom: 1px solid #000;
+			}
+
+			/* 行内元素 / 文本水平居中（父元素控制） */
+			#horizontal-text {
+				text-align: center;
+			}
+			#horizontal-text img {
+				width: 100px;
+				height: 100px;
+				cursor: pointer;
+			}
+			/* 块级元素水平居中（固定宽度） */
+			#horizontal-block > div {
+				margin: 0 auto;
+				border: 1px dashed #000;
+				width: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>水平居中</h1>
+		<ol>
+			<li>
+				<b>行内元素 / 文本水平居中（父元素控制）</b>
+				<div id="horizontal-text" class="border-black content-box">
+					<span class="border-dashed">行内元素</span>
+					<p class="border-dashed">文本</p>
+					<img
+						class="border-dashed"
+						src="./居中布局01.png"
+						alt="图片"
+						title="图片" />
+				</div>
+			</li>
+			<li>
+				<b>块级元素水平居中（固定宽度）</b>
+				<div id="horizontal-block" class="border-black content-box">
+					<div>块级元素</div>
+				</div>
+			</li>
+		</ol>
+		<h1>垂直居中</h1>
+		<ol>
+			<li></li>
+			<li></li>
+		</ol>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.border-black {
+	border: 1px solid black;
+}
+
+.button {
+	padding: 4px 6px;
+	border: 1px solid #000;
+	cursor: pointer;
+}

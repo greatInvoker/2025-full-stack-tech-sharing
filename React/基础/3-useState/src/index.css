@@ -1,0 +1,19 @@
+h1 {
+	border-bottom: 1px solid #000;
+}
+table {
+	margin-top: 24px;
+	border: 1px solid #000;
+	border-collapse: collapse;
+}
+table tr td {
+	padding: 8px 12px;
+	border: 1px solid #000;
+}
+
+#container {
+	padding: 24px;
+}
+#btnTool {
+	margin-top: 12px;
+}

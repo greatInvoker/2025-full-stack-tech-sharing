@@ -4,20 +4,20 @@
 
 ```plaintext
 react-mini-cli/
-├── bin/                 # 脚手架执行目录
-│   └── react-mini.js       # 执行脚本
-├── template/            # 项目模板目录
-│   ├── public/				# 公共资源目录
-│   └── src/				# 源码目录
-│		├── App.jsx         	# react入口组件
-│		└── index.jsx       	# 入口脚本
-│   ├── index.html		    # 入口html
-│ 	├── .gitignore          # git忽略文件
-│   ├── package.json		# 项目依赖
-│   ├── vite.config.js      # vite配置
-│   └── README.md			# 项目文档
-├── package.json		 # 脚手架依赖
-└── README.md            # 脚手架文档
+├── bin/                          # 脚手架执行目录
+│   └── react-mini.js             # 核心执行脚本（处理命令行逻辑）
+├── template/                     # 项目模板目录（基于Vite+React）
+│   ├── public/                   # 公共静态资源（直接复制至生成项目）
+│   ├── src/                      # 源码目录
+│   │   ├── App.jsx               # React根组件（业务逻辑入口）
+│   │   └── index.jsx             # 应用入口（渲染组件到DOM）
+│   ├── index.html                # HTML模板（含Vite资源注入标签）
+│   ├── .gitignore                # Git忽略配置（排除node_modules等）
+│   ├── package.json              # 生成项目的依赖清单（含React/Vite）
+│   ├── vite.config.js            # Vite配置文件（可自定义打包规则）
+│   └── README.md                 # 生成项目的说明文档
+├── package.json                  # 脚手架自身依赖（如commander、fs-extra等）
+└── README.md                     # 脚手架使用文档（安装/命令说明）
 ```
 
 ## 1.创建脚手架项目

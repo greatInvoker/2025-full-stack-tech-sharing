@@ -1,67 +1,68 @@
-# React Mini Cli
+# ReactHook-useState
 
-这是一个基于 Vite + React 的极简项目模板，适用于快速搭建 React 项目。
+[https://react.docschina.org/reference/react/useState]
 
-## 项目结构
+## 1. useState 的定义
 
-```plaintext
-template/
-├── .gitignore         # Git 忽略文件
-├── index.html         # 项目入口 HTML
-├── package.json       # 项目依赖与脚本
-├── README.md          # 项目说明（可补充）
-├── vite.config.js     # Vite 配置
-├── public/            # 公共资源目录
-└── src/               # 源码目录
-    ├── App.jsx        # React 入口组件
-    └── index.jsx      # 应用入口文件
+useState 是 React 16.8 引入的 Hooks API，用于在函数组件中管理状态。
+
+## 2.基本语法
+
+```js
+const [state, setState] = useState(initialState);
 ```
 
-## 使用方法
+⚠️ ：useState 只能在组件顶层或自定义 Hook 中调用，不能在循环或条件语句中调用（如需如此，请提取一个新组件并将状态移入其中）。
 
-1. **安装依赖**
+**参数**
 
-```bash
- pnpm install
- # 或 npm install / yarn install
+- initialState：任意类型的初始值。
+  - 仅在组件首次渲染时被使用，后续渲染会忽略。
+  - 为函数时应为不接收参数的纯函数，并应返回任意类型的值。（ ⚠️：在严格模式中，React 将调用两次初始化函数，以帮你找到意外的不纯性。这只是开发行为，不影响生产）
+  - [特性-惰性初始化](#3-1-惰性初始化)
+
+```jsx
+import { useState } from 'react';
+
+function MyComponent() {
+  const [age, setAge] = useState(28);
+  const [name, setName] = useState('Taylor');
+  // 以下两种写法等价
+  const [todos, setTodos] = useState(() => createTodos());
+  const [todos, setTodos] = useState(createTodos);
+  // ...
 ```
 
-2. **启动开发服务器**
+**返回**
 
-```bash
- pnpm dev
- # 或 npm run dev / yarn dev
+- useState 返回一个由两个值组成的数组：[state, setState]。
+  - state：当前的 state，在首次渲染时，它将与你传递的 initialState 相匹配。
+  - setState：set 函数，它可以让你将 state 更新为不同的值并触发重新渲染。
+
+### 2-1.set 函数， 如 setSomething(nextState)
+
+useState 返回的 set 函数允许你将 state 更新为不同的值并触发重新渲染。你可以直接传递新状态，也可以传递一个根据先前状态来计算新状态的函数。
+
+```jsx
+const [name, setName] = useState('Edward');
+
+function handleClick() {
+  setName('Taylor');
+  setAge(prevState => prevState + 1);
+  // ...
 ```
 
-启动后会自动打开浏览器，访问本地开发环境。
+## 3.特性
 
-3. **构建生产包**
+### 3-1 惰性初始化
 
-```bash
- pnpm build
- # 或 npm run build / yarn build
+当 initialState 需要复杂计算或从 localStorage 获取数据等场景时可以传入一个函数：
+
+```jsx
+// 🙆推荐写法：只会在组件首次渲染时执行一次initialStateFn
+const [state, setState] = useState(initialStateFn);
+const [state, setState] = useState(() => initialStateFn());
+
+// 🙅不推荐写法：会导致每次组件渲染时都调用一次initialStateFn
+const [state, setState] = useState(initialStateFn());
 ```
-
-4. **预览生产包**
-
-```bash
- pnpm preview
- # 或 npm run preview / yarn preview
-```
-
-## 主要特性
-
-- 使用 [Vite](https://vitejs.dev/) 作为构建工具，极速启动与热更新
-- 集成 [React 19](https://react.dev/)
-- 支持 JSX/TSX、自动解析常用扩展名
-- 结构清晰，适合自定义扩展
-
-## 说明
-
-- 请勿直接修改 `node_modules` 目录
-- 推荐使用 pnpm 进行依赖管理，亦兼容 npm/yarn
-- 如需自定义配置，可修改 `vite.config.js`
-
----
-
-致敬伟大的 CodeGod-吕威鹏！

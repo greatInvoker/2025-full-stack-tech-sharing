@@ -28,7 +28,7 @@ export default function Table() {
 	const [count, setCount] = useState(0); // initialState为number
 
 	const add = () => {
-		// 新数据的ID依赖prevTableData的length生成，故采用函数式更新
+		// 新数据的id依赖prevTableData的length生成，故采用函数式更新
 		setTableData((prevTableData) => {
 			const result = [...prevTableData, getDataItem(prevTableData.length + 1)];
 			try {

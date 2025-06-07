@@ -1,6 +1,6 @@
 {
 	"name": "react-mini-cli",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"author": "CodeGod-吕威鹏",
 	"license": "ISC",
 	"description": "仅包含React的极简脚手架，适用于学习和自由扩展",

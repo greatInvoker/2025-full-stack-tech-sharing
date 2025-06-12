@@ -52,7 +52,7 @@ template/
 ## 主要特性
 
 - 使用 [Vite](https://vitejs.dev/) 作为构建工具，极速启动与热更新
-- 集成 [React 19](https://react.dev/)
+- 集成 [React 18](https://react.dev/)
 - 支持 JSX/TSX、自动解析常用扩展名
 - 结构清晰，适合自定义扩展
 

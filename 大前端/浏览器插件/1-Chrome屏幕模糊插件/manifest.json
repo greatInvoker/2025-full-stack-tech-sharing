@@ -1,0 +1,19 @@
+{
+	"manifest_version": 3,
+	"name": "屏幕模糊插件",
+	"version": "1.0",
+	"description": "使用快捷键模糊屏幕",
+	"permissions": ["activeTab", "scripting"],
+	"commands": {
+		"toggle-blur": {
+			"suggested_key": {
+				"default": "Alt+Shift+D",
+				"mac": "Alt+Shift+D"
+			},
+			"description": "切换屏幕模糊状态"
+		}
+	},
+	"background": {
+		"service_worker": "background.js"
+	}
+}

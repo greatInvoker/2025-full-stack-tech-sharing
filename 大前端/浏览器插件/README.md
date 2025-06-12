@@ -31,7 +31,7 @@
 
 - 本地调试方法
 
-  - **Chrome**：访问 chrome://extensions/ → 开启 “开发者模式” → 加载已解压的扩展程序。
+  - **Chrome**：访问 chrome://extensions/ → 开启 “开发者模式” → 加载已解压的扩展程序。插件卡片的检查视图能打开插件对应的开发者工具 DevTools。
   - **Firefox**：访问 about:debugging → 选择 “此 Firefox” → 临时载入附加组件。
 
 - 测试工具

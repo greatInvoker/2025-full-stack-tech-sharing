@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>深拷贝</title>
+	</head>
+	<body>
+		<script>
+			const isObject = (data) => {
+				return (
+					data !== null &&
+					(typeof data === "object" || typeof data === "function")
+				);
+			};
+
+			const deepClone = (value) => {
+				const map = new WeakMap(); // 使用WeakMap记录已处理的数据
+
+				function _deepClone(data) {
+					// 1 ------基本数据类型 ------
+					if (!isObject(data)) {
+						return data;
+					}
+					// 2  ------引用数据类型 ------
+					if (map.has(data)) {
+						return map.get(data); // 已处理的数据直接返回
+					}
+					// 2-1 特殊类型
+					if (data instanceof RegExp) {
+						return new RegExp(data);
+					}
+					if (data instanceof Date) {
+						return new Date(data.getTime());
+					}
+					if (data instanceof Function) {
+						return data;
+					}
+					// 2-2 数组和对象
+					const result = Array.isArray(data) ? [] : {};
+					map.set(data, result); // 保存已处理的映射关系
+					for (const key in data) {
+						if (Object.prototype.hasOwnProperty.call(data, key)) {
+							result[key] = _deepClone(data[key]);
+						}
+					}
+					return result;
+				}
+
+				return _deepClone(value);
+			};
+
+			const obj = {
+				name: "吕威鹏",
+				hobby: ["唱", "跳", "篮球"],
+				regex: /$abc/,
+				birthday: new Date(),
+				walk: function () {
+					console.log("走路");
+				},
+			};
+			obj.son = obj;
+			obj.hobby[3] = obj;
+			const obj2 = deepClone(obj);
+
+			console.log(obj, obj2);
+			console.log("对象>>>", obj === obj2);
+			console.log("函数>>>", obj.walk === obj2.walk);
+			console.log(
+				"循环引用>>>",
+				obj.son === obj2.son,
+				obj.hobby[3] === obj2.hobby[3]
+			);
+		</script>
+	</body>
+</html>

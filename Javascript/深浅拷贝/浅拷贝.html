@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>浅拷贝</title>
+	</head>
+	<body>
+		<script>
+			const obj = {
+				name: "吕威鹏",
+				walk: function () {
+					console.log("走路");
+				},
+			};
+			obj.son = obj; // 循环引用
+
+			// 直接赋值是将obj的映射地址赋值给obj2，所以obj2和obj其实是内存中的同一个数据，故对JS来说它们是相同的
+			const obj2 = obj;
+			console.log("obj2>>>", obj2, obj2 === obj); // true
+
+			// 1-解构
+			const obj3 = { ...obj };
+			console.log("obj3>>>", obj3, obj3 === obj); // false
+			console.log("obj3循环引用>>>", obj3, obj3.son === obj.son); // true
+
+			// 2-Object.assign()
+			const obj4 = Object.assign({}, obj);
+			console.log("obj4>>>", obj4, obj4 === obj); // false
+			console.log("obj4循环引用>>>", obj4, obj4.son === obj.son); // true
+
+			// 3-序列化：无法克隆函数属性，循环引用会报错
+			try {
+				const obj5 = JSON.parse(JSON.stringify(obj));
+				console.log("obj5>>>", obj5, obj5 === obj); // false
+			} catch (error) {
+				console.error("序列化出错:", error);
+			}
+		</script>
+	</body>
+</html>

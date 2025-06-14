@@ -66,7 +66,7 @@ cat \~/.ssh/id\_ed25519.pub
 若有多个密钥或需自定义配置，编辑 `~/.ssh/config` 文件（无则创建）：
 
 ```YAML
-Host github.com
+Host github.com # 自定义名称，用于替代实际域名
   HostName github.com # 实际域名
   User git
   IdentityFile ~/.ssh/id_ed25519 # 私钥路径，按实际文件名改

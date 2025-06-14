@@ -1,4 +1,4 @@
-const getDataItem = (id) => {
+const getDataItem = (id = 1) => {
 	const lastNameArr = [
 		"赵",
 		"钱",

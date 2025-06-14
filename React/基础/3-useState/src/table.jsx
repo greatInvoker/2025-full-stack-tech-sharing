@@ -5,10 +5,10 @@ const PEOPLE_LIST = "people_list";
 function getInitData() {
 	const lTableData = localStorage.getItem(PEOPLE_LIST);
 	try {
-		return lTableData ? JSON.parse(lTableData) : [getDataItem(1)];
+		return lTableData ? JSON.parse(lTableData) : [getDataItem()];
 	} catch (error) {
 		console.error("解析 localStorage 数据错误:", error);
-		return [getDataItem(1)];
+		return [getDataItem()];
 	}
 }
 
@@ -49,7 +49,7 @@ export default function Table() {
 		} catch (error) {
 			console.error("清除 localStorage 数据错误:", error);
 		}
-		setTableData([getDataItem(1)]); // set函数的基本用法
+		setTableData([getDataItem()]); // set函数的基本用法
 		setCount(0); // set函数的基本用法
 	};
 

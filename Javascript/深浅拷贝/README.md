@@ -78,3 +78,5 @@ const deepClone = (value) => {
 	return _deepClone(value);
 };
 ```
+
+- WeakMap 和 Map 的区别

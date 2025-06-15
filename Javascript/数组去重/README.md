@@ -17,4 +17,4 @@ const result2 = Array.from(
 );
 ```
 
-⚠️：该方法无法处理数组元素为 undefiend、bigint、循环引用的数组。
+⚠️：该方法无法处理数组元素为 undefined、bigint、循环引用的数组。

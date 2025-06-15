@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>数组去重</title>
+	</head>
+	<body>
+		<script>
+			// 数组去重--不含引用数据类型
+			const basicArray = [
+				10,
+				"abc",
+				true,
+				undefined,
+				null,
+				Symbol("唯一"),
+				99n,
+			];
+			const doubleBasicArray = basicArray.concat(basicArray);
+			// Set
+			const result = Array.from(new Set(doubleBasicArray));
+			console.log("数组去重--不含引用数据类型");
+			console.log("去重前>>>", doubleBasicArray);
+			console.log("去重后>>>", result);
+
+			const refArray = [{ name: "吕威鹏", age: 18 }, "abc", 10, true];
+			const doubleRefArray = refArray.concat(refArray);
+			// Set + JSON
+			const result2 = Array.from(
+				new Set(doubleRefArray.map(JSON.stringify)),
+				JSON.parse
+			);
+			console.log("数组去重--含引用数据类型");
+			console.log("去重前>>>", doubleRefArray);
+			console.log("去重后>>>", result2);
+		</script>
+	</body>
+</html>

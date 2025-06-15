@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>实现new方法</title>
+	</head>
+	<body>
+		<script>
+			function myNew(constructor, ...args) {
+				// 未传递正确的构造函数时，抛出错误
+				if (typeof constructor !== "function") {
+					throw TypeError(`${constructor} is not a constructor`);
+				}
+				// 1.根据constructor的原型创建一个新对象
+				const obj = Object.create(constructor.prototype);
+				// 2.使用apply将this指向obj，并初始化参数
+				const result = constructor.apply(obj, args);
+				// 3.根据constructor类型确定是否返回新的实例
+				return result !== null && typeof result === "object" ? result : obj;
+			}
+
+			function Person(name, age) {
+				this.name = name;
+				this.age = age;
+			}
+
+			console.log(myNew(Person, "吕威鹏", 18));
+			console.log(myNew(10)); // 测试错误传参数
+		</script>
+	</body>
+</html>

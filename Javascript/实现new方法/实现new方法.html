@@ -10,7 +10,7 @@
 			function myNew(constructor, ...args) {
 				// 未传递正确的构造函数时，抛出错误
 				if (typeof constructor !== "function") {
-					throw TypeError(`${constructor} is not a constructor`);
+					throw new TypeError(`${constructor} is not a constructor`);
 				}
 				// 1.根据constructor的原型创建一个新对象
 				const obj = Object.create(constructor.prototype);

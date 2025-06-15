@@ -2,7 +2,7 @@
 
 ## 思路
 
-1. 理解 JS 在执行 new 操作符时都做了什么？[new 操作符原理](#1javascript-在执行-new-操作符时都做了什么)
+1. 理解 JS 在执行 new 操作符时都做了什么？
 2. 确定函数参数 -- 构造函数、初始化属性
 3. 模拟 new 的执行过程编写相关代码
 4. 测试函数，优化和完善
@@ -41,7 +41,7 @@ const obj = new Object(); // 通过Object对象创建空对象（自己实现的
 const obj = Object.create(构造函数.prototype); // 🙆推荐：JS官方方法，性能方面做了优化，在创建新对象时就指定了原型链，精简了代码
 
 空对象.__proto__ = 构造函数.prototype; // 🙅不推荐：非JS官方方法，会破坏原型链结构，存在兼容性、性能等问题
-Object.setPrototype(空对象, 构造函数.prototype); // 🙅不推荐：性能开销大
+Object.setPrototypeOf(空对象, 构造函数.prototype); // 🙅不推荐：性能开销大
 ```
 
 ### 2-4 根据构造函数的类型确定是否需要返回新的实例
@@ -59,7 +59,7 @@ result !== null && typeof result === "object";
 
 ```js
 if (typeof constructor !== "function") {
-	throw TypeError(`${constructor} is not a constructor`);
+	throw new TypeError(`${constructor} is not a constructor`);
 }
 ```
 
@@ -71,7 +71,7 @@ if (typeof constructor !== "function") {
 function myNew(constructor, ...args) {
 	// 未传递正确的构造函数时，抛出错误
 	if (typeof constructor !== "function") {
-		throw TypeError(`${constructor} is not a constructor`);
+		throw new TypeError(`${constructor} is not a constructor`);
 	}
 	// 1.根据constructor的原型创建一个新对象
 	const obj = Object.create(constructor.prototype);

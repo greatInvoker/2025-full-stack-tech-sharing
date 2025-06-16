@@ -1,11 +1,11 @@
 # 浏览器插件
 
-## 1 主流浏览器平台
+## 1.主流浏览器平台
 
 - **Chrome/Edge**：使用 [ChromeExtensions](https://developer.chrome.google.cn/docs/extensions?hl=zh-cn) 标准，用户基数大。
 - **Firefox**：兼容 [WebExtensions](https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions) 标准，需额外处理权限问题。
 
-## 2 开发知识点
+## 2.开发知识点
 
 ### 2-1 开发工具与框架
 
@@ -39,7 +39,7 @@
   - **集成测试**：Puppeteer（模拟用户操作）。
   - **性能分析**：Chrome DevTools 的 Performance 面板（优化内存和加载速度）。
 
-## 3 发布与盈利策略
+## 3.发布与盈利策略
 
 ### 3-1 发布流程
 

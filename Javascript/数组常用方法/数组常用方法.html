@@ -3,33 +3,55 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>数组常用方法</title>
+		<title>数组常用方法--增删操作</title>
 	</head>
 	<body>
 		<script>
-			// 1.------------------------------增删改查------------------------------
 			// push()：在数组末尾新增一个或多个元素，返回更新后的数组长度
 			const arr1 = ["1", "2", "3"];
-			arr1.push("4"); // 返回 4，原数组变为["1", "2", "3", "4"]
+			const newLength1 = arr1.push("4"); // 返回 4，原数组变为["1", "2", "3", "4"]
+			console.log("push 返回的新长度:", newLength1);
+			console.log("push 操作后的数组:", arr1);
 
 			// pop()：删除数组最后一个元素，返回该元素（空数组返回 undefined）
 			const arr2 = ["1", "2", "3"];
-			arr2.pop(); // 返回 "3"，原数组变为["1", "2"]
+			const removedElement2 = arr2.pop(); // 返回 "3"，原数组变为["1", "2"]
+			console.log("pop 删除的元素:", removedElement2);
+			console.log("pop 操作后的数组:", arr2);
 
 			// shift()：删除数组第一个元素，返回该元素（空数组返回 undefined）
 			const arr3 = ["1", "2", "3"];
-			arr3.shift(); // 返回 "1"，原数组变为["2", "3"]
+			const removedElement3 = arr3.shift(); // 返回 "1"，原数组变为["2", "3"]
+			console.log("shift 删除的元素:", removedElement3);
+			console.log("shift 操作后的数组:", arr3);
 
 			// unshift()：在数组开头新增一个或多个元素，返回更新后的数组长度
 			const arr4 = ["1", "2", "3"];
-			arr4.unshift("0"); // 返回 4，原数组变为["0", "1", "2", "3"]
+			const newLength4 = arr4.unshift("0"); // 返回 4，原数组变为["0", "1", "2", "3"]
+			console.log("unshift 返回的新长度:", newLength4);
+			console.log("unshift 操作后的数组:", arr4);
 
 			// splice()：删除 / 替换 / 新增数组元素（参数：起始索引，删除数量，替换元素）
-			const arr5 = ["1", "2", "3"];
-			// arr5.splice(0, 1); // 从 0 开始，删除 1 个元素，返回 ["1"]，原数组变为["2", "3"];
-			// const result = arr5.splice(1);
-			// console.log(result);
-			console.log(arr5.splice(1));
+			const arr5 = ["1", "2", "3", "4", "5", "6", "7", "8"];
+			// 删除：删除从 6 开始的元素，返回被删除的元素数组["7", "8"]，原数组变为["1", "2", "3", "4", "5", "6"]
+			const removedElements5_1 = arr5.splice(6);
+			console.log("splice 第一次删除的元素:", removedElements5_1);
+			console.log("splice 第一次操作后的数组:", arr5);
+
+			// 删除：删除从 3 开始的 1 个元素，返回被删除的元素数组["4"]，原数组变为["1", "2", "3", "5", "6"]
+			const removedElements5_2 = arr5.splice(3, 1);
+			console.log("splice 第二次删除的元素:", removedElements5_2);
+			console.log("splice 第二次操作后的数组:", arr5);
+
+			// 替换：删除从 2 开始的 2 个元素，从 2 前新增 "3"， "4"， "5"，返回被删除的元素数组["3", "5"]，原数组变为["1", "2", "3", "4", "5", "6"]
+			const removedElements5_3 = arr5.splice(2, 2, "3", "4", "5");
+			console.log("splice 第三次删除的元素:", removedElements5_3);
+			console.log("splice 第三次操作后的数组:", arr5);
+
+			// 新增：删除从 5 开始的 0 个元素，从 5 前新增 "5.3"，"5.6"，返回[]，原数组变为["1", "2", "3", "4", "5", "5.3", "5.6", "6"]
+			const removedElements5_4 = arr5.splice(5, 0, "5.3", "5.6");
+			console.log("splice 第四次删除的元素:", removedElements5_4);
+			console.log("splice 第四次操作后的数组:", arr5);
 		</script>
 	</body>
 </html>

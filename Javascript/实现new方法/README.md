@@ -85,5 +85,5 @@ function Person(name, age) {
 }
 
 console.log(myNew(Person, "吕威鹏", 18));
-console.log(myNew(10)); // 测试错误传参数
+console.log(myNew(10)); // 测试错误传参
 ```

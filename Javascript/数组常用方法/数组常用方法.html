@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>数组常用方法</title>
+	</head>
+	<body>
+		<script>
+			// 1.------------------------------增删改查------------------------------
+			// push()：在数组末尾新增一个或多个元素，返回更新后的数组长度
+			const arr1 = ["1", "2", "3"];
+			arr1.push("4"); // 返回 4，原数组变为["1", "2", "3", "4"]
+
+			// pop()：删除数组最后一个元素，返回该元素（空数组返回 undefined）
+			const arr2 = ["1", "2", "3"];
+			arr2.pop(); // 返回 "3"，原数组变为["1", "2"]
+
+			// shift()：删除数组第一个元素，返回该元素（空数组返回 undefined）
+			const arr3 = ["1", "2", "3"];
+			arr3.shift(); // 返回 "1"，原数组变为["2", "3"]
+
+			// unshift()：在数组开头新增一个或多个元素，返回更新后的数组长度
+			const arr4 = ["1", "2", "3"];
+			arr4.unshift("0"); // 返回 4，原数组变为["0", "1", "2", "3"]
+
+			// splice()：删除 / 替换 / 新增数组元素（参数：起始索引，删除数量，替换元素）
+			const arr5 = ["1", "2", "3"];
+			// arr5.splice(0, 1); // 从 0 开始，删除 1 个元素，返回 ["1"]，原数组变为["2", "3"];
+			// const result = arr5.splice(1);
+			// console.log(result);
+			console.log(arr5.splice(1));
+		</script>
+	</body>
+</html>

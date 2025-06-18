@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<script>
-			// 数组去重--不含引用数据类型
+			// 数组去重--仅基本数据类型元素
 			const basicArray = [
 				10,
 				"abc",
@@ -20,10 +20,11 @@
 			const doubleBasicArray = basicArray.concat(basicArray);
 			// Set
 			const result = Array.from(new Set(doubleBasicArray));
-			console.log("数组去重--不含引用数据类型");
+			console.log("数组去重--仅基本数据类型元素");
 			console.log("去重前>>>", doubleBasicArray);
 			console.log("去重后>>>", result);
 
+			// 数组去重--含引用数据类型
 			const refArray = [{ name: "吕威鹏", age: 18 }, "abc", 10, true];
 			const doubleRefArray = refArray.concat(refArray);
 			// Set + JSON

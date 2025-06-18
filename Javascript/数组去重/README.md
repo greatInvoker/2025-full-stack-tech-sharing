@@ -4,15 +4,15 @@
 
 ```js
 // Set
-Array.from(new Set(仅基本数据类型元素的数组));
+const result = Array.from(new Set(仅基本数据类型元素的数组));
 ```
 
 ## 含引用数据类型元素的数组
 
 ```js
 // Set + JSON
-const result2 = Array.from(
-	new Set(doubleRefArray.map(JSON.stringify)),
+const result = Array.from(
+	new Set(含引用数据类型元素的数组.map(JSON.stringify)),
 	JSON.parse
 );
 ```

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>数组常用方法--迭代方法</title>
+	</head>
+	<body>
+		<script>
+			// forEach()：遍历数组，执行传入的函数（无返回值）
+			const arr1 = [1, 2, 3];
+			arr1.forEach((value) => {
+				console.log("forEach：", value);
+			});
+
+			// map()：对每个元素执行传入的函数，返回新数组
+			const arr2 = [1, 2, 3];
+			const mapArr = arr2.map((value) => value * 2); // 返回 [2, 4, 6]
+			console.log("map:", mapArr);
+
+			// filter()：过滤出满足条件的元素，返回新数组
+			const arr3 = [1, 2, 3, "a", "b"];
+			const filterArr = arr3.filter((value) => typeof value === "number"); // 返回 [1, 2, 3]
+			console.log("filter:", filterArr);
+
+			// reduce()：为每个数组元素执行传入的reducer函数，reducer函数会接收上次的计算结果，返回最终的处理结果
+			// 注意：空数组使用reduce 或 预期结果与数组元素类型不同 必须指定initialValue
+			const arr4 = ["h", "e", "l", "l", "o"];
+			const result = arr4.reduce((preVal, curVal) => {
+				return preVal + curVal;
+			}); // 返回 'hello'
+			console.log("reduce:", result);
+
+			// every()：对每个元素执行传入的函数，全满足条件返回true，否则返回false
+			const arr5 = [1, 2, 3, "a", "b", "c"];
+			const everyflag = arr5.every((value) => typeof value === "number"); // 返回 false
+			console.log("every:", everyflag);
+
+			// some()：对每个元素执行传入的函数，仅部分满足条件就返回true，否则返回false
+			const arr6 = [1, 2, 3, "a", "b", "c"];
+			const someflag = arr6.some((value) => typeof value === "number"); // 返回 true
+			console.log("some:", someflag);
+
+			// find()：对每个元素执行传入的函数，返回第一个满足条件的元素（未找到返回 undefined）
+			const arr7 = [1, 2, 3, 4];
+			const element = arr7.find((value) => value % 2 === 0); // 返回 2
+			console.log("find:", element);
+
+			// findIndex()：对每个元素执行传入的函数，返回第一个满足条件的元素索引（未找到返回 -1）
+			const arr8 = [1, 2, 3, 4];
+			const index = arr8.findIndex((value) => value % 2 === 0); // 返回 1
+			console.log("findIndex:", index);
+		</script>
+	</body>
+</html>

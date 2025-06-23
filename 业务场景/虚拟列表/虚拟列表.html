@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>虚拟列表</title>
+		<style>
+			#container {
+				position: relative;
+				margin: 0 24px;
+				width: 800px;
+				height: 80vh;
+				border: 1px solid #000;
+				overflow: scroll;
+			}
+
+			#placeholder {
+				position: absolute;
+				z-index: 1;
+				width: 100%;
+			}
+
+			#list {
+				position: absolute;
+				z-index: 2;
+				width: 100%;
+			}
+		</style>
+		<link rel="stylesheet" href="./style.css" />
+		<script src="performance.js"></script>
+	</head>
+	<body>
+		<h1>
+			虚拟列表
+			<button id="normalBtn">普通渲染</button>
+			<button id="virtualBtn">虚拟列表渲染</button>
+		</h1>
+		<h5>可见区域：</h5>
+		<div id="container">
+			<div id="list"></div>
+			<div id="placeholder"></div>
+		</div>
+		<script>
+			// 列表配置
+			let data = [];
+			const dataLength = 1000000;
+			const itemHeight = 138;
+			const bufferSize = 5;
+			const placeholder = document.getElementById("placeholder");
+			const container = document.getElementById("container");
+			const list = document.getElementById("list");
+
+			const getData = () => {
+				const item = {
+					name: "吕威鹏",
+					description:
+						"永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。",
+					company: "兰亭序",
+				};
+				const result = new Array(dataLength);
+				for (let i = 0; i < result.length; i++) {
+					result[i] = item;
+				}
+				return result;
+			};
+
+			const render = () => {
+				// 占位元素撑起可视区域
+				placeholder.style.height = `${data.length * itemHeight}px`;
+
+				// 计算可视区域的起始和结束索引
+				const scrollTop = container.scrollTop;
+				const startIndex = Math.max(
+					Math.floor(scrollTop / itemHeight) - bufferSize,
+					0
+				);
+				const endIndex = Math.min(
+					Math.ceil((scrollTop + container.clientHeight) / itemHeight) +
+						bufferSize,
+					data.length
+				);
+
+				// 计算需渲染的项目
+				const visibleItems = data.slice(startIndex, endIndex);
+
+				// 计算内容偏移量
+				const offsetTop = startIndex * itemHeight;
+				list.style.transform = `translateY(${offsetTop}px)`;
+
+				// 渲染可见项目
+				list.innerHTML = visibleItems
+					.map((item, index) => {
+						// 计算实际索引
+						const realIndex = startIndex + index;
+						return `<div class="item">
+									<div>
+										<span>${item.name}</span>
+										<span>&nbsp;第 <b class='item-no'>${realIndex}</b> 号</span>
+									</div>
+									<div>${item.description}</div>
+									<div class="item-company">${item.company}</div>
+								</div>`;
+					})
+					.join("");
+			};
+
+			window.addEventListener("load", function () {
+				data = getData(); // 模拟向后端获取数据的过程
+				render();
+			});
+			window.addEventListener("resize", render);
+			container.addEventListener("scroll", render);
+		</script>
+	</body>
+</html>

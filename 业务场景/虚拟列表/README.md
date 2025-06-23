@@ -156,6 +156,6 @@ window.addEventListener("load", function () {
 	data = getData(); // 模拟向后端获取数据的过程
 	render();
 });
-window.addEventListener("resize", debounce(render));
-container.addEventListener("scroll", throttle(render));
+window.addEventListener("resize", render);
+container.addEventListener("scroll", render);
 ```

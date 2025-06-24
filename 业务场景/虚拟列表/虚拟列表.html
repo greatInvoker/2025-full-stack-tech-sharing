@@ -16,13 +16,13 @@
 
 			#placeholder {
 				position: absolute;
-				z-index: 1;
 				width: 100%;
 			}
 
 			#list {
 				position: absolute;
-				z-index: 2;
+				top: 0;
+				left: 0;
 				width: 100%;
 			}
 		</style>
@@ -30,20 +30,16 @@
 		<script src="performance.js"></script>
 	</head>
 	<body>
-		<h1>
-			虚拟列表
-			<button id="normalBtn">普通渲染</button>
-			<button id="virtualBtn">虚拟列表渲染</button>
-		</h1>
+		<h1>虚拟列表</h1>
 		<h5>可见区域：</h5>
 		<div id="container">
-			<div id="list"></div>
 			<div id="placeholder"></div>
+			<div id="list"></div>
 		</div>
 		<script>
 			// 列表配置
 			let data = [];
-			const dataLength = 1000000;
+			const dataLength = 100000;
 			const itemHeight = 138;
 			const bufferSize = 5;
 			const placeholder = document.getElementById("placeholder");

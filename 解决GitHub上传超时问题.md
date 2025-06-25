@@ -26,7 +26,7 @@ SSH 协议比 Https 协议更安全更高效，适合频繁提交的应用场景
 2.  **执行生成命令**
 
 ```bash
-ssh-keygen -t ed25519 -C "your\_email@example.com"
+ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
 - `ed25519` 是推荐的现代密钥算法，也可用 `rsa`（如 `ssh-keygen -t rsa -b 4096 -C "邮箱"` ）。
@@ -50,7 +50,7 @@ ssh-keygen -t ed25519 -C "your\_email@example.com"
 1.  **复制公钥内容**
 
 ```bash
-cat \~/.ssh/id\_ed25519.pub
+cat ~/.ssh/id_ed25519.pub
 ```
 
 复制输出的公钥文本（类似 `ssh-ed25519 AAAAC3... 邮箱` ）。

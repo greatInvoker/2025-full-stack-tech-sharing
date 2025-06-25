@@ -25,8 +25,16 @@
 			console.log("去重后>>>", result);
 
 			// 数组去重--含引用数据类型元素
-			const refArray = [{ name: "吕威鹏", age: 18 }, "abc", 10, true];
-			const doubleRefArray = refArray.concat(refArray);
+			const doubleRefArray = [
+				{ name: "吕威鹏", age: 18 },
+				{ name: "吕威鹏", age: 18 },
+				"abc",
+				"abc",
+				10,
+				10,
+				true,
+				true,
+			];
 			// Set + JSON
 			const result2 = Array.from(
 				new Set(doubleRefArray.map(JSON.stringify)),

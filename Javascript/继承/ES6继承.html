@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ES6继承</title>
+	</head>
+	<body>
+		<script>
+			class Parent {
+				constructor(name) {
+					this.type = "parent";
+					this.hobby = ["唱", "跳"];
+					this.name = name;
+					this.foo = function () {
+						console.log("被调用");
+					};
+				}
+				sayName() {
+					console.log("我叫" + this.name);
+				}
+			}
+
+			class Child extends Parent {
+				constructor(name) {
+					super(name);
+				}
+			}
+
+			const child = new Child("刘禅");
+			child.sayName(); // 我叫刘禅
+			console.dir(child);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ES5继承</title>
+	</head>
+	<body>
+		<script>
+			function Parent(name) {
+				this.type = "parent";
+				this.hobby = ["唱", "跳"];
+				this.name = name;
+				this.foo = function () {
+					console.log("被调用");
+				};
+				// this.foo(); // Parent构造函数被调用就触发
+			}
+			Parent.prototype.sayName = function () {
+				console.log("我叫" + this.name);
+			};
+
+			console.log("1.-----------------------原型链继承-----------------------");
+			function Child() {}
+			Child.prototype = new Parent(); // 【关键】子类原型指向父类构造函数
+
+			const child = new Child("刘禅");
+			console.dir(child);
+			console.log("【缺点1】无法传参：", child.name); // undefined
+			const child2 = new Child("刘封");
+			console.log("【缺点2】共享引用类型属性：", child.hobby === child2.hobby); // true
+			console.log("--------------------------------------------------------");
+
+			console.log("2.----------------------构造函数继承----------------------");
+			function Child2(name) {
+				Parent.call(this, name); // 【关键】通过call或apply调用父类构造函数
+			}
+
+			const child3 = new Child2("刘禅");
+			console.dir(child3);
+			console.log("【缺点1】无法继承原型方法：", child3.sayName); // undefined
+			const child4 = new Child2("刘封");
+			console.log("【缺点2】方法重复创建：", child3.foo === child4.foo); // false
+			console.log("--------------------------------------------------------");
+
+			console.log("3.------------------------组合继承------------------------");
+			function Child3(name) {
+				Parent.call(this, name); // 【关键1】通过call或apply调用父类构造函数
+			}
+			Child3.prototype = new Parent(); // 【关键2】子类原型指向父类实例
+			Child3.prototype.constructor = Child3; // 【关键3】修复constructor指向
+
+			const child5 = new Child3("刘禅");
+			console.dir(child5);
+			console.log("【缺点1】父类构造函数调用两次");
+			console.log("【缺点2】存在冗余属性：", child5.type, child5.hobby);
+			console.log("--------------------------------------------------------");
+
+			console.log("4.------------------------寄生继承------------------------");
+			// 【关键1】通过工厂模式函数创建对象，增强后返回。
+			function creatChild(name) {
+				const obj = Object.create({
+					sayName: function () {
+						console.log("我是" + this.name);
+					},
+				}); // 【关键2】通过Object.create添加原型链方法
+				obj.name = name;
+				obj.foo = function () {
+					console.log("被调用");
+				};
+				return obj;
+			}
+
+			const child6 = creatChild("刘禅");
+			console.dir(child6);
+			console.log("--------------------------------------------------------");
+
+			console.log("5.-----------------寄生组合继承（极简版）-----------------");
+			function Child4(name) {
+				Parent.call(this, name); // 【关键1】通过call或apply调用父类构造函数
+			}
+			Child4.prototype = Object.create(Parent.prototype); //【关键2】通过Object.create创建原型
+			Child4.prototype.constructor = Child4; //【关键3】修复constructor指向
+
+			const child7 = new Child4("刘禅");
+			console.dir(child7);
+			console.log("--------------------------------------------------------");
+
+			console.log("6.-----------------寄生组合继承（封装版）-----------------");
+			function Child5(name) {
+				Parent.call(this, name); // 【关键1】通过call或apply调用父类构造函数
+			}
+			function inheritPrototype(Parent, Child) {
+				const prototype = Object.create(Parent.prototype); //【关键2】通过Object.create创建原型
+				Child.prototype = prototype;
+				prototype.constructor = Child; //【关键3】修复constructor指向
+			}
+			inheritPrototype(Parent, Child5);
+
+			const child8 = new Child5("刘禅");
+			console.dir(child8);
+			console.log("--------------------------------------------------------");
+		</script>
+	</body>
+</html>

@@ -1,0 +1,75 @@
+/* 表格 */
+table {
+	margin-top: 12px;
+	border: 1px solid #000;
+	border-collapse: collapse;
+}
+table tr td {
+	padding: 8px 12px;
+	border: 1px solid #000;
+}
+
+/* 按钮栏 */
+#btn-tool {
+	margin-top: 12px;
+}
+
+/* 弹窗 */
+#musk {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(4px);
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+}
+.musk-open {
+	z-index: 99;
+	opacity: 1;
+}
+.musk-close {
+	z-index: -1;
+	opacity: 0;
+}
+#modal {
+	width: 400px;
+	height: 280px;
+	background-color: #fff;
+	border: 1px solid #000;
+	pointer-events: auto;
+}
+#modal-title {
+	position: relative;
+	padding: 12px;
+	text-align: center;
+	font-size: 24px;
+	border-bottom: 1px solid #000;
+}
+#modal-title > span {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 60px;
+	height: 100%;
+	font-size: 36px;
+	cursor: pointer;
+}
+#modal-form {
+	padding: 12px 24px;
+	font-size: 12px;
+}
+#modal-form > div {
+	width: 100%;
+	margin-bottom: 12px;
+}
+#modal-form input,
+selcet {
+	width: 100%;
+	height: 30px;
+}
+#from-btn-tool {
+	text-align: right;
+}

@@ -1,0 +1,25 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.pr-12 {
+	padding-right: 12px;
+}
+.pl-12 {
+	padding-left: 12px;
+}
+.ml-12 {
+	margin-left: 12px;
+}
+
+.border-black {
+	border: 1px solid black;
+}
+
+.button {
+	padding: 4px 6px;
+	border: 1px solid #000;
+	cursor: pointer;
+}

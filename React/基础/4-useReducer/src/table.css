@@ -4,13 +4,16 @@ table {
 	border: 1px solid #000;
 	border-collapse: collapse;
 }
+table tr.active {
+	background-color: yellow;
+}
 table tr td {
 	padding: 8px 12px;
 	border: 1px solid #000;
 }
 
 /* 按钮栏 */
-#btn-tool {
+#tools {
 	margin-top: 12px;
 }
 
@@ -70,6 +73,6 @@ selcet {
 	width: 100%;
 	height: 30px;
 }
-#from-btn-tool {
+#modal-from-tools {
 	text-align: right;
 }

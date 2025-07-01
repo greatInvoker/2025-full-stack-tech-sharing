@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 const PEOPLE_LIST = "people_list";
 
 function getInitData() {
@@ -12,13 +12,11 @@ function getInitData() {
 }
 
 export default function Table() {
+	console.log("渲染");
+	const baseData = { id: 0, username: "", age: "", gender: "" };
 	const [isActive, setIsActive] = useState(false);
-	const [title, setTittle] = useState("新增客户");
-	const [choseData, setChoseData] = useState({
-		username: "",
-		age: "",
-		gender: "",
-	});
+	const [title, setTitle] = useState("新增客户");
+	const [choseData, setChoseData] = useState(baseData);
 	const [action, setAction] = useState({ type: "", payload: {} });
 	const [tableData, tableDataDispatch] = useReducer(
 		tableDataReducer,
@@ -37,72 +35,78 @@ export default function Table() {
 					},
 				];
 			case "update":
-				break;
-			case "delete":
-				break;
+				return state.map((item) =>
+					item.id === action.payload.id ? action.payload : item
+				);
+			case "del":
+				return state.filter((item) => item.id !== action.payload.id);
 			default:
-				break;
+				return state;
 		}
 	}
 
 	const openModal = () => {
 		setIsActive(true);
 	};
+
 	const closeModal = () => {
 		setIsActive(false);
 	};
 
 	const chooseData = (item) => {
-		setChoseData({ ...item });
+		setChoseData(item);
 	};
 
 	const add = () => {
-		setTittle("新增客户");
+		setTitle("新增客户");
 		openModal();
-		setAction((prevAction) => {
-			return { ...prevAction, type: "add" };
-		});
+		setAction({ type: "add" });
+		setChoseData(baseData);
 	};
 
 	const update = () => {
-		console.log(choseData, !choseData);
-		if (!choseData) {
+		if (!choseData.id) {
 			return alert("请选择要修改的数据");
 		}
-		setTittle("修改客户");
+		setTitle("修改客户");
 		openModal();
-		setAction((prevAction) => {
-			return { ...prevAction, type: "update" };
-		});
-		const formNode = document.getElementById("modal-form");
-		console.log(formNode.value);
-		console.dir(formNode);
-		// formNode.children[0].value = choseData.username;
-		// formNode.children[1].value = choseData.age;
-		// formNode.children[2].value = choseData.gender;
+		setAction({ type: "update" });
+	};
+
+	const del = () => {
+		if (!choseData.id) {
+			return alert("请选择要删除的数据");
+		}
+		if (confirm("确定要删除此客户吗？")) {
+			tableDataDispatch({ type: "del", payload: { id: choseData.id } });
+			setChoseData(baseData);
+		}
 	};
 
 	const handleSumbit = (e) => {
 		e.preventDefault();
 		tableDataDispatch({
 			type: action.type,
-			payload: {
-				username: e.target.username.value,
-				age: e.target.age.value,
-				gender: e.target.gender.value,
-			},
+			payload:
+				action.type === "update"
+					? { ...choseData, ...getFormData(e) }
+					: getFormData(e),
 		});
 		closeModal();
 	};
 
+	const getFormData = (e) => ({
+		username: e.target.username.value,
+		age: e.target.age.value,
+		gender: e.target.gender.value,
+	});
+
 	function PeopleList({ tableData }) {
-		return tableData.map((item, index) => (
+		return tableData.map((item) => (
 			<tr
-				className={choseData?.id === index + 1 ? "active" : void 0}
+				className={choseData?.id === item.id ? "active" : void 0}
 				key={item.id}
-				onClick={() => {
-					chooseData(item);
-				}}>
+				onClick={() => chooseData(item)}>
 				<td>{item.id}</td>
 				<td>{item.username}</td>
 				<td>{item.age}</td>
@@ -111,7 +115,9 @@ export default function Table() {
 		));
 	}
 
-	console.log("渲染");
+	useEffect(() => {
+		localStorage.setItem(PEOPLE_LIST, JSON.stringify(tableData));
+	}, [tableData]);
 
 	return (
 		<>
@@ -122,8 +128,11 @@ export default function Table() {
 				<span className="ml-12 button" onClick={update}>
 					修改
 				</span>
-				<span className="ml-12 button">删除</span>
+				<span className="ml-12 button" onClick={del}>
+					删除
+				</span>
 			</div>
+
 			<table>
 				<thead>
 					<tr>
@@ -137,12 +146,14 @@ export default function Table() {
 					<PeopleList tableData={tableData} />
 				</tbody>
 			</table>
+
 			<div id="musk" className={isActive ? "musk-open" : "musk-close"}>
 				<div id="modal">
 					<div id="modal-title">
 						<b>{title}</b>
 						<span onClick={closeModal}>&times;</span>
 					</div>
+
 					<form id="modal-form" onSubmit={handleSumbit}>
 						<div>
 							<label htmlFor="username">姓名：</label>
@@ -150,10 +161,10 @@ export default function Table() {
 								id="username"
 								type="text"
 								placeholder="请输入姓名"
-								autoComplete="username"
 								defaultValue={choseData.username}
 							/>
 						</div>
+
 						<div>
 							<label htmlFor="age">年龄：</label>
 							<input
@@ -163,6 +174,7 @@ export default function Table() {
 								defaultValue={choseData.age}
 							/>
 						</div>
+
 						<div>
 							<label htmlFor="gender">性别：</label>
 							<select id="gender" defaultValue={choseData.gender}>
@@ -170,6 +182,7 @@ export default function Table() {
 								<option value="女">女</option>
 							</select>
 						</div>
+
 						<div id="modal-from-tools">
 							<button className="button ml-12" type="submit">
 								确定

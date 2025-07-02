@@ -12,12 +12,11 @@ function getInitData() {
 }
 
 export default function Table() {
-	console.log("渲染");
-	const baseData = { id: 0, username: "", age: "", gender: "" };
 	const [isActive, setIsActive] = useState(false);
 	const [title, setTitle] = useState("新增客户");
-	const [choseData, setChoseData] = useState(baseData);
 	const [action, setAction] = useState({ type: "", payload: {} });
+	const baseItemData = { id: 0, username: "", age: "", gender: "男" };
+	const [itemData, setItemData] = useState(baseItemData);
 	const [tableData, tableDataDispatch] = useReducer(
 		tableDataReducer,
 		[],
@@ -30,8 +29,11 @@ export default function Table() {
 				return [
 					...state,
 					{
-						id: state.length + 1,
 						...action.payload,
+						id:
+							state.length > 0
+								? Math.max(...state.map((item) => item.id)) + 1
+								: 1,
 					},
 				];
 			case "update":
@@ -45,7 +47,8 @@ export default function Table() {
 		}
 	}
 
-	const openModal = () => {
+	const openModal = (title) => {
+		setTitle(title);
 		setIsActive(true);
 	};
 
@@ -53,67 +56,60 @@ export default function Table() {
 		setIsActive(false);
 	};
 
-	const chooseData = (item) => {
-		setChoseData(item);
-	};
-
 	const add = () => {
-		setTitle("新增客户");
-		openModal();
+		openModal("新增客户");
 		setAction({ type: "add" });
-		setChoseData(baseData);
+		setItemData(baseItemData);
 	};
 
 	const update = () => {
-		if (!choseData.id) {
+		if (!itemData.id) {
 			return alert("请选择要修改的数据");
 		}
-		setTitle("修改客户");
-		openModal();
+		openModal("修改客户");
 		setAction({ type: "update" });
 	};
 
 	const del = () => {
-		if (!choseData.id) {
+		if (!itemData.id) {
 			return alert("请选择要删除的数据");
 		}
 		if (confirm("确定要删除此客户吗？")) {
-			tableDataDispatch({ type: "del", payload: { id: choseData.id } });
-			setChoseData(baseData);
+			tableDataDispatch({ type: "del", payload: { id: itemData.id } });
+			setItemData(baseItemData);
 		}
+	};
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setItemData((prevChoseData) => ({
+			...prevChoseData,
+			[name]: value,
+		}));
 	};
 
 	const handleSumbit = (e) => {
 		e.preventDefault();
 		tableDataDispatch({
 			type: action.type,
-			payload:
-				action.type === "update"
-					? { ...choseData, ...getFormData(e) }
-					: getFormData(e),
+			payload: itemData,
 		});
 		closeModal();
 	};
 
-	const getFormData = (e) => ({
-		username: e.target.username.value,
-		age: e.target.age.value,
-		gender: e.target.gender.value,
-	});
-
-	function PeopleList({ tableData }) {
+	const PeopleList = ({ tableData }) => {
 		return tableData.map((item) => (
 			<tr
-				className={choseData?.id === item.id ? "active" : void 0}
+				className={itemData?.id === item.id ? "active" : void 0}
 				key={item.id}
-				onClick={() => chooseData(item)}>
+				onClick={() => setItemData(item)}>
 				<td>{item.id}</td>
 				<td>{item.username}</td>
 				<td>{item.age}</td>
 				<td>{item.gender}</td>
 			</tr>
 		));
-	}
+	};
 
 	useEffect(() => {
 		localStorage.setItem(PEOPLE_LIST, JSON.stringify(tableData));
@@ -153,36 +149,40 @@ export default function Table() {
 						<b>{title}</b>
 						<span onClick={closeModal}>&times;</span>
 					</div>
-
 					<form id="modal-form" onSubmit={handleSumbit}>
 						<div>
 							<label htmlFor="username">姓名：</label>
 							<input
 								id="username"
+								name="username"
 								type="text"
 								placeholder="请输入姓名"
-								defaultValue={choseData.username}
+								value={itemData.username}
+								onChange={handleChange}
 							/>
 						</div>
-
 						<div>
 							<label htmlFor="age">年龄：</label>
 							<input
 								id="age"
+								name="age"
 								type="text"
 								placeholder="请输入年龄"
-								defaultValue={choseData.age}
+								value={itemData.age}
+								onChange={handleChange}
 							/>
 						</div>
-
 						<div>
 							<label htmlFor="gender">性别：</label>
-							<select id="gender" defaultValue={choseData.gender}>
+							<select
+								id="gender"
+								name="gender"
+								value={itemData.gender}
+								onChange={handleChange}>
 								<option value="男">男</option>
 								<option value="女">女</option>
 							</select>
 						</div>
-
 						<div id="modal-from-tools">
 							<button className="button ml-12" type="submit">
 								确定

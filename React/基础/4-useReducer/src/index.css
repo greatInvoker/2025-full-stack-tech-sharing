@@ -1,3 +1,10 @@
+h1 {
+	border-bottom: 1px solid #000;
+}
+#container {
+	padding: 24px;
+}
+
 /* 表格 */
 table {
 	margin-top: 12px;
@@ -39,7 +46,7 @@ table tr td {
 }
 #modal {
 	width: 400px;
-	height: 280px;
+	min-height: 280px;
 	background-color: #fff;
 	border: 1px solid #000;
 	pointer-events: auto;
@@ -69,7 +76,7 @@ table tr td {
 	margin-bottom: 12px;
 }
 #modal-form input,
-selcet {
+select {
 	width: 100%;
 	height: 30px;
 }
